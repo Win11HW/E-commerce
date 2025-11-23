@@ -61,7 +61,7 @@ export default function Navbar() {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>products</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid gap-3 sm:w-[400px] md:w-[500px] lg:w-[600px] md:grid-cols-2 lg:grid-cols-3 p-4">
+                    <ul className="grid gap-3 sm:w-[400px] md:w-[500px] lg:w-[600px] md:grid-cols-2 lg:grid-cols-4 p-4">
                       {/* Featured Brand Section */}
                       <li className="row-span-3">
                         <NavigationMenuLink asChild>
