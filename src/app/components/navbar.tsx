@@ -57,37 +57,43 @@ export default function Navbar() {
                   </Link>
                 </NavigationMenuItem>
 
-                {/* products */}
+                {/* Products */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>products</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>Products</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid gap-3 sm:w-[400px] md:w-[500px] lg:w-[600px] md:grid-cols-2 lg:grid-cols-4 p-4">
-                      {/* Featured Brand Section */}
-                      <li className="row-span-3">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-blue-500 to-blue-600 p-6 no-underline outline-none focus:shadow-md"
-                            href="/brands"
-                          >
-                            <div className="mb-2 mt-4 text-lg font-medium text-white">
-                              All Brands
-                            </div>
-                            <p className="text-sm leading-tight text-blue-100">
-                              Discover our complete collection of premium brands
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      
-                      {/* Brand List */}
-                      {products.map((brand) => (
-                        <ListItem
-                          key={brand.name}
-                          href={brand.href}
-                          title={brand.name}
-                        />
-                      ))}
-                    </ul>
+                    <div className="w-[600px] p-6">
+                      <div className="grid grid-cols-4 gap-4">
+                        {/* Featured Brand Section */}
+                        <div className="col-span-1">
+                          <NavigationMenuLink asChild>
+                            <Link
+                              className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-blue-500 to-blue-600 p-6 no-underline outline-none focus:shadow-md transition-transform hover:scale-[1.02]"
+                              href="/brands"
+                            >
+                              <div className="mb-2 text-lg font-medium text-white">
+                                All Brands
+                              </div>
+                              <p className="text-sm leading-tight text-blue-100">
+                                Discover our complete collection of premium brands
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
+                        </div>
+                        
+                        {/* Brand List - 3 columns */}
+                        <div className="col-span-3">
+                          <div className="grid grid-cols-3 gap-2">
+                            {products.map((brand) => (
+                              <ListItem
+                                key={brand.name}
+                                href={brand.href}
+                                title={brand.name}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
@@ -201,18 +207,18 @@ export default function Navbar() {
                   
                   {isMobileBrandsOpen && (
                     <div className="ml-4 flex flex-col space-y-2 mt-2">
-                      {products.map((products) => (
+                      {products.map((product) => (
                         <Link
-                          key={products.name}
-                          href={products.href}
+                          key={product.name}
+                          href={product.href}
                           className="text-gray-600 hover:text-blue-600 transition duration-200 py-1 text-sm"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          {products.name}
+                          {product.name}
                         </Link>
                       ))}
                       <Link
-                        href="/product"
+                        href="/brands"
                         className="text-blue-600 font-medium text-sm mt-2"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -259,18 +265,20 @@ export default function Navbar() {
   )
 }
 
-// Updated ListItem component without description
+// Updated ListItem component with improved design
 const ListItem = ({ title, href }: { title: string; href: string }) => {
   return (
-    <li>
+    <div className="group">
       <NavigationMenuLink asChild>
         <Link
           href={href}
-          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-blue-50 hover:text-blue-600 focus:bg-blue-50"
+          className="flex items-center p-3 rounded-md no-underline outline-none transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 focus:bg-blue-50 border border-transparent hover:border-blue-100 group-hover:shadow-sm"
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
+          <div className="text-sm font-medium leading-none transition-transform group-hover:translate-x-1">
+            {title}
+          </div>
         </Link>
       </NavigationMenuLink>
-    </li>
+    </div>
   )
 }
