@@ -4,281 +4,158 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'
-import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
+import { ShoppingCartIcon, UserIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isMobileBrandsOpen, setIsMobileBrandsOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
-  const products = [
-    { name: 'Converse', href: '/products/Converse' },
-    { name: 'Nike', href: '/products/nike' },
-    { name: 'Adidas', href: '/products/adidas' },
-    { name: 'Puma', href: '/products/puma' },
-    { name: 'Apple', href: '/products/apple' },
-    { name: 'Samsung', href: '/products/samsung' },
-    { name: 'Microsoft', href: '/products/Microsoft' },
-    { name: 'Sony', href: '/products/sony' },
+  const categories = [
+    'Home',
+    'Computers',
+    'Smartphones',
+    'Headphones',
+    'Cameras',
+    'Smartwatches',
   ]
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
+      {/* Main Header */}
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex items-center gap-6 py-4">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-blue-600">
-            ShopEasy
+          <Link href="/" className="flex items-center">
+            <span className="text-xl font-bold text-gray-900">
+              Shop<span className="text-blue-600">Easy</span>
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <NavigationMenu>
-              <NavigationMenuList>
-                {/* Home */}
-                <NavigationMenuItem>
-                  <Link href="/" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Home
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
+          {/* Search */}
+          <div className="flex-1 max-w-2xl">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600">
+              <svg
+  className="w-5 h-5"
+  fill="none"
+  stroke="currentColor"
+  strokeWidth={1.8}
+  viewBox="0 0 24 24"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"
+  />
+</svg>
 
-                {/* Products */}
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="w-[600px] p-6">
-                      <div className="grid grid-cols-4 gap-4">
-                        {/* Featured Brand Section */}
-                        <div className="col-span-1">
-                          <NavigationMenuLink asChild>
-                            <Link
-                              className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-blue-500 to-blue-600 p-6 no-underline outline-none focus:shadow-md transition-transform hover:scale-[1.02]"
-                              href="/brands"
-                            >
-                              <div className="mb-2 text-lg font-medium text-white">
-                                All Brands
-                              </div>
-                              <p className="text-sm leading-tight text-blue-100">
-                                Discover our complete collection of premium brands
-                              </p>
-                            </Link>
-                          </NavigationMenuLink>
-                        </div>
-                        
-                        {/* Brand List - 3 columns */}
-                        <div className="col-span-3">
-                          <div className="grid grid-cols-3 gap-2">
-                            {products.map((brand) => (
-                              <ListItem
-                                key={brand.name}
-                                href={brand.href}
-                                title={brand.name}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                {/* Products */}
-                <NavigationMenuItem>
-                  <Link href="/products" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Products
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-
-                {/* Categories */}
-                <NavigationMenuItem>
-                  <Link href="/categories" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Categories
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-
-                {/* About */}
-                <NavigationMenuItem>
-                  <Link href="/about" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      About
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-
-                {/* Contact */}
-                <NavigationMenuItem>
-                  <Link href="/contact" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Contact
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+              </button>
+            </div>
           </div>
 
-          {/* Right Side Icons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="icon" className="text-gray-700 hover:text-blue-600">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </Button>
-            <Button variant="ghost" size="icon" className="text-gray-700 hover:text-blue-600 relative" asChild>
+          {/* Right Icons */}
+          <div className="hidden md:flex items-center gap-3">
+            <Button variant="ghost" size="icon" className="relative text-gray-600 hover:text-blue-600" asChild>
               <Link href="/cart/1">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  3
-                </span>
+              <svg
+  className="w-5 h-5"
+  fill="none"
+  stroke="currentColor"
+  strokeWidth={1.8}
+  viewBox="0 0 24 24"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M3 3h2l.6 3m0 0h13.4l-1.5 7H7.1m0 0L5 6m2.1 7L5.4 15.6A1.5 1.5 0 006.6 18h10.8"
+  />
+</svg>
+
               </Link>
             </Button>
-            <Button variant="ghost" size="icon" className="text-gray-700 hover:text-blue-600">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
+
+            <Button variant="ghost" size="icon" className="text-gray-600 hover:text-blue-600">
+            <svg
+  className="w-5 h-5"
+  fill="none"
+  stroke="currentColor"
+  strokeWidth={1.8}
+  viewBox="0 0 24 24"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 3c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"
+  />
+</svg>
+
             </Button>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu */}
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button variant="ghost" size="icon" className="md:hidden text-gray-700">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+
+            <SheetContent side="left" className="w-[280px] bg-white">
               <SheetHeader>
-                <SheetTitle className="text-left">
-                  <Link href="/" className="text-2xl font-bold text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>
-                    ShopEasy
-                  </Link>
+                <SheetTitle className="text-left text-lg font-semibold">
+                  Shop<span className="text-blue-600">Easy</span>
                 </SheetTitle>
               </SheetHeader>
-              
-              {/* Mobile Navigation */}
-              <div className="flex flex-col space-y-4 mt-8">
-                <Link 
-                  href="/" 
-                  className="text-gray-700 hover:text-blue-600 transition duration-300 py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Home
-                </Link>
-                
-                {/* Mobile Brands */}
-                <div className="border-b border-gray-200 pb-2">
-                  <button 
-                    className="flex items-center justify-between w-full text-gray-700 hover:text-blue-600 transition duration-300 py-2"
-                    onClick={() => setIsMobileBrandsOpen(!isMobileBrandsOpen)}
-                  >
-                    Brands
-                    <svg 
-                      className={`w-4 h-4 transition-transform ${isMobileBrandsOpen ? 'rotate-180' : ''}`} 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  
-                  {isMobileBrandsOpen && (
-                    <div className="ml-4 flex flex-col space-y-2 mt-2">
-                      {products.map((product) => (
-                        <Link
-                          key={product.name}
-                          href={product.href}
-                          className="text-gray-600 hover:text-blue-600 transition duration-200 py-1 text-sm"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          {product.name}
-                        </Link>
-                      ))}
-                      <Link
-                        href="/brands"
-                        className="text-blue-600 font-medium text-sm mt-2"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        View All Brands
-                      </Link>
-                    </div>
-                  )}
-                </div>
 
-                <Link 
-                  href="/products" 
-                  className="text-gray-700 hover:text-blue-600 transition duration-300 py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Products
-                </Link>
-                <Link 
-                  href="/categories" 
-                  className="text-gray-700 hover:text-blue-600 transition duration-300 py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Categories
-                </Link>
-                <Link 
-                  href="/about" 
-                  className="text-gray-700 hover:text-blue-600 transition duration-300 py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  About
-                </Link>
-                <Link 
-                  href="/contact" 
-                  className="text-gray-700 hover:text-blue-600 transition duration-300 py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Contact
-                </Link>
+              <div className="mt-8 flex flex-col gap-4">
+                {['Home', 'Products', 'Categories', 'Cart', 'Account'].map((item) => (
+                  <Link
+                    key={item}
+                    href={`/${item.toLowerCase()}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-sm font-medium text-gray-700 hover:text-blue-600"
+                  >
+                    {item}
+                  </Link>
+                ))}
               </div>
             </SheetContent>
           </Sheet>
         </div>
       </div>
-    </nav>
-  )
-}
 
-// Updated ListItem component with improved design
-const ListItem = ({ title, href }: { title: string; href: string }) => {
-  return (
-    <div className="group">
-      <NavigationMenuLink asChild>
-        <Link
-          href={href}
-          className="flex items-center p-3 rounded-md no-underline outline-none transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 focus:bg-blue-50 border border-transparent hover:border-blue-100 group-hover:shadow-sm"
-        >
-          <div className="text-sm font-medium leading-none transition-transform group-hover:translate-x-1">
-            {title}
+      {/* Category Bar */}
+      <div className="bg-gray-50 border-t border-gray-200">
+        <div className="container mx-auto px-4">
+          <div className="flex gap-6 py-2 text-sm text-gray-600 overflow-x-auto">
+            {categories.map((category) => (
+              <Link
+                key={category}
+                href={`/category/${category.toLowerCase()}`}
+                className="whitespace-nowrap hover:text-blue-600 font-medium"
+              >
+                {category}
+              </Link>
+            ))}
           </div>
-        </Link>
-      </NavigationMenuLink>
-    </div>
+        </div>
+      </div>
+    </nav>
   )
 }
