@@ -1,10 +1,19 @@
 'use client'
 
-import ProductCard from './components/productCard'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import {
+  Laptop,
+  Smartphone,
+  Headphones,
+  Camera,
+  Watch,
+} from 'lucide-react'
+import ProductCard from './components/productCard'
 
-// Mock data - in real app, this would come from API
+/* ================= MOCK DATA ================= */
+
 const products = [
   {
     id: '1',
@@ -12,7 +21,7 @@ const products = [
     price: 99.99,
     image: '/api/placeholder/300/300',
     category: 'Electronics',
-    rating: 4.5
+    rating: 4.5,
   },
   {
     id: '2',
@@ -20,7 +29,7 @@ const products = [
     price: 199.99,
     image: '/api/placeholder/300/300',
     category: 'Electronics',
-    rating: 4.2
+    rating: 4.2,
   },
   {
     id: '3',
@@ -28,7 +37,7 @@ const products = [
     price: 79.99,
     image: '/api/placeholder/300/300',
     category: 'Fashion',
-    rating: 4.7
+    rating: 4.7,
   },
   {
     id: '4',
@@ -36,26 +45,9 @@ const products = [
     price: 49.99,
     image: '/api/placeholder/300/300',
     category: 'Accessories',
-    rating: 4.3
+    rating: 4.3,
   },
-  {
-    id: '5',
-    name: 'Bluetooth Speaker',
-    price: 59.99,
-    image: '/api/placeholder/300/300',
-    category: 'Electronics',
-    rating: 4.1
-  },
-  {
-    id: '6',
-    name: 'Coffee Mug',
-    price: 14.99,
-    image: '/api/placeholder/300/300',
-    category: 'Home',
-    rating: 4.6
-  }
 ]
-
 
 const computers = [
   {
@@ -102,30 +94,30 @@ const computers = [
 
 const slides = [
   {
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=75',
     badge: 'New Arrivals',
     title: 'Upgrade Your Tech Today',
-    description:
-      'Discover the latest gadgets with premium quality and unbeatable prices.',
+    description: 'Discover the latest gadgets with premium quality.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=75',
     badge: 'Top Rated',
     title: 'Smart Devices for Modern Life',
-    description:
-      'Experience innovation with our best-selling electronics.',
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e',
-    badge: 'Best Sellers',
-    title: 'Sound That Moves You',
-    description:
-      'Premium audio products built for comfort and performance.',
+    description: 'Innovation that fits your lifestyle.',
   },
 ]
 
-export default function Home() {
+const categories = [
+  { name: 'Computers', icon: Laptop },
+  { name: 'Smartphones', icon: Smartphone },
+  { name: 'Headphones', icon: Headphones },
+  { name: 'Cameras', icon: Camera },
+  { name: 'Smartwatches', icon: Watch },
+]
 
+/* ================= PAGE ================= */
+
+export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   useEffect(() => {
@@ -137,13 +129,14 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="bg-[#F3F3F3] min-h-screen">
-      <section className="bg-white">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+    <main className="bg-[#F3F3F3]">
 
-          {/* ================= LEFT: HERO SLIDER (3/4) ================= */}
-          <div className="lg:col-span-3 relative overflow-hidden rounded-xl bg-gray-100 min-h-[420px]">
+      {/* ========== HERO SECTION ========== */}
+      <section className="bg-white">
+        <div className="container mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+          {/* Slider */}
+          <div className="lg:col-span-3 relative min-h-[420px] rounded-xl overflow-hidden">
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -151,115 +144,80 @@ export default function Home() {
                   index === currentSlide ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <img
+                <Image
                   src={slide.image}
                   alt={slide.title}
-                  className="h-full w-full object-cover"
+                  fill
+                  priority={index === 0}
+                  className="object-cover"
                 />
-
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/10 flex items-center">
-                  <div className="p-8 max-w-xl">
-                    <span className="inline-block mb-3 rounded-full bg-white/90 px-4 py-1 text-sm font-medium text-blue-600">
+                <div className="absolute inset-0 bg-black/50 flex items-center">
+                  <div className="p-8 max-w-xl text-white">
+                    <span className="inline-block bg-white text-blue-600 px-4 py-1 rounded-full text-sm">
                       {slide.badge}
                     </span>
-
-                    <h1 className="text-4xl font-bold text-white sm:text-5xl">
+                    <h1 className="mt-4 text-4xl font-bold">
                       {slide.title}
                     </h1>
-
-                    <p className="mt-4 text-lg text-gray-200">
+                    <p className="mt-3 text-gray-200">
                       {slide.description}
                     </p>
-
-                    <div className="mt-6 flex gap-4">
-                      <Link
-                        href="/products"
-                        className="rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700 transition"
-                      >
-                        Shop Now
-                      </Link>
-
-                      <Link
-                        href="/categories"
-                        className="rounded-md bg-white/90 px-6 py-3 text-sm font-semibold text-gray-900 hover:bg-white transition"
-                      >
-                        Browse Categories
-                      </Link>
-                    </div>
+                    <Link
+                      href="/products"
+                      className="inline-block mt-6 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md text-sm font-semibold transition"
+                    >
+                      Shop Now
+                    </Link>
                   </div>
                 </div>
               </div>
             ))}
-
-            {/* Slider Dots */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`h-2.5 w-2.5 rounded-full transition ${
-                    index === currentSlide
-                      ? 'bg-white'
-                      : 'bg-white/50 hover:bg-white/80'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
           </div>
 
-          {/* ================= RIGHT: TOP SELLERS (1/4) ================= */}
+          {/* Side Banners */}
           <div className="flex flex-col gap-6">
-
-            {/* Seller Card 1 */}
-            <Link
-              href="/category/smartphones"
-              className="group relative overflow-hidden rounded-xl bg-gray-100 h-1/2"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
-                alt="Top smartphones"
-                className="h-full w-full object-cover group-hover:scale-105 transition-transform"
-              />
-              <div className="absolute inset-0 bg-black/40 flex items-end">
-                <div className="p-4">
-                  <h3 className="text-white font-semibold">
-                    Best Smartphones
-                  </h3>
-                  <p className="text-sm text-gray-200">
-                    Top sellers
-                  </p>
+            {['smartphones', 'headphones'].map((cat) => (
+              <Link
+                key={cat}
+                href={`/category/${cat}`}
+                className="relative h-1/2 rounded-xl overflow-hidden group"
+              >
+                <Image
+                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=75"
+                  alt={cat}
+                  fill
+                  className="object-cover group-hover:scale-105 transition"
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-end p-4 text-white font-semibold">
+                  Best {cat}
                 </div>
-              </div>
-            </Link>
-
-            {/* Seller Card 2 */}
-            <Link
-              href="/category/headphones"
-              className="group relative overflow-hidden rounded-xl bg-gray-100 h-1/2"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
-                alt="Top headphones"
-                className="h-full w-full object-cover group-hover:scale-105 transition-transform"
-              />
-              <div className="absolute inset-0 bg-black/40 flex items-end">
-                <div className="p-4">
-                  <h3 className="text-white font-semibold">
-                    Best Headphones
-                  </h3>
-                  <p className="text-sm text-gray-200">
-                    Customer favorites
-                  </p>
-                </div>
-              </div>
-            </Link>
-
+              </Link>
+            ))}
           </div>
         </div>
-      </div>
       </section>
+
+      {/* ========== CATEGORIES ========== */}
+      <section className="container mx-auto px-4 py-12">
+        <h2 className="text-2xl font-bold mb-6">
+          Shop by Category
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {categories.map(({ name, icon: Icon }) => (
+            <Link
+              key={name}
+              href={`/category/${name.toLowerCase()}`}
+              className="bg-white border rounded-lg p-8 text-center hover:shadow-md transition"
+            >
+              <Icon className="mx-auto mb-4 h-8 w-8 text-blue-600" />
+              <h3 className="font-medium text-gray-900">
+                {name}
+              </h3>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <section className="bg-white py-16">
       <div className="container mx-auto px-4">
 
@@ -323,41 +281,19 @@ export default function Home() {
       </div>
     </section>
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Featured Products */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-[#0F1111]">Featured Products</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
 
-        {/* Categories Section */}
-        <section>
-          <h2 className="text-2xl font-bold mb-6 text-[#0F1111]">Shop by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {['Electronics', 'Fashion', 'Home & Kitchen', 'Sports'].map((category) => (
-              <div
-                key={category}
-                className="bg-white border border-[#D5D9D9] rounded-lg p-8 text-center hover:shadow-md transition-shadow duration-200 cursor-pointer group"
-              >
-                <div className="mb-4 text-4xl">
-                  {category === 'Electronics' && '💻'}
-                  {category === 'Fashion' && '👗'}
-                  {category === 'Home & Kitchen' && '🏠'}
-                  {category === 'Sports' && '⚽'}
-                </div>
-                <h3 className="text-lg font-medium text-[#0F1111] group-hover:text-[#C7511F] transition-colors">
-                  {category}
-                </h3>
-                <p className="text-sm text-[#565959] mt-2">Shop now</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-    </div>
+      {/* ========== FEATURED PRODUCTS ========== */}
+      <section className="container mx-auto px-4 py-16">
+        <h2 className="text-2xl font-bold mb-6">
+          Featured Products
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+    </main>
   )
 }
