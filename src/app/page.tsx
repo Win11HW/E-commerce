@@ -10,7 +10,7 @@ import {
   Camera,
   Watch,
 } from 'lucide-react'
-import ProductCard from './components/productCard'
+import { Card } from "./components/card";
 
 /* ================= MOCK DATA ================= */
 
@@ -55,42 +55,38 @@ const computers = [
     name: 'MacBook Pro 14"',
     specs: 'M2 Pro · 16GB · 512GB',
     price: '$1,999',
-    image:
-      'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',
   },
   {
     id: 2,
     name: 'Dell XPS 15',
     specs: 'Intel i7 · 16GB · 1TB',
     price: '$1,799',
-    image:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
   },
   {
     id: 3,
     name: 'HP Spectre x360',
     specs: 'Intel i7 · 16GB · 512GB',
     price: '$1,599',
-    image:
-      'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04',
+    image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04',
   },
   {
     id: 4,
     name: 'Lenovo ThinkPad X1',
     specs: 'Intel i7 · 16GB · 1TB',
     price: '$1,899',
-    image:
-      'https://images.unsplash.com/photo-1593642532973-d31b6557fa68',
+    image: 'https://images.unsplash.com/photo-1593642532973-d31b6557fa68',
   },
   {
     id: 5,
     name: 'Asus ROG Zephyrus',
     specs: 'Ryzen 9 · 32GB · RTX 4070',
     price: '$2,299',
-    image:
-      'https://images.unsplash.com/photo-1602080858428-57174f9431cf',
+    image: 'https://images.unsplash.com/photo-1602080858428-57174f9431cf',
   },
-]
+];
+
 
 const slides = [
   {
@@ -218,82 +214,59 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white py-16">
-      <div className="container mx-auto px-4">
+      <section>
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Popular Computers</h2>
 
-        {/* Section Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">
-            Popular Computers
-          </h2>
+        <Link
+          href="/category/computers"
+          className="text-sm font-medium text-blue-600"
+        >
+          View all
+        </Link>
+      </div>
 
-          <Link
-            href="/category/computers"
-            className="text-sm font-medium text-blue-600 hover:text-blue-700"
-          >
-            View all
-          </Link>
-        </div>
-
-        {/* Horizontal Scroll */}
-        <div className="relative">
-          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            {computers.map((computer) => (
-              <Link
-                key={computer.id}
-                href={`/product/${computer.id}`}
-                className="group min-w-[260px] max-w-[260px] rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition"
-              >
-                {/* Image */}
-                <div className="aspect-[4/3] overflow-hidden rounded-t-xl bg-gray-100">
-                  <img
-                    src={computer.image}
-                    alt={computer.name}
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="p-4">
-                  <h3 className="text-sm font-semibold text-gray-900">
-                    {computer.name}
-                  </h3>
-
-                  <p className="mt-1 text-xs text-gray-500">
-                    {computer.specs}
-                  </p>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="text-sm font-bold text-gray-900">
-                      {computer.price}
-                    </span>
-
-                    <span className="rounded-md bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-600">
-                      Buy
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
+      <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+        {computers.map((computer) => (
+          <Card
+            key={computer.id}
+            id={computer.id}
+            name={computer.name}
+            specs={computer.specs}
+            price={computer.price}
+            image={computer.image}
+          />
+        ))}
       </div>
     </section>
 
+    <section>
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Popular Computers</h2>
 
-      {/* ========== FEATURED PRODUCTS ========== */}
-      <section className="container mx-auto px-4 py-16">
-        <h2 className="text-2xl font-bold mb-6">
-          Featured Products
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </section>
+        <Link
+          href="/category/computers"
+          className="text-sm font-medium text-blue-600"
+        >
+          View all
+        </Link>
+      </div>
 
+      <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+        {computers.map((computer) => (
+          <Card
+            key={computer.id}
+            id={computer.id}
+            name={computer.name}
+            specs={computer.specs}
+            price={computer.price}
+            image={computer.image}
+          />
+        ))}
+      </div>
+    </section>
+
+    <br/><br/>
     </main>
   )
 }
