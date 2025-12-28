@@ -11,11 +11,7 @@ export const metadata: Metadata = {
   description: 'Discover amazing products at great prices',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -24,9 +20,12 @@ export default function RootLayout({
       <body className={`${inter.className} bg-background text-foreground`}>
         <div className="min-h-screen flex flex-col">
           <Navbar />
-          <main className="flex-grow">
+
+          {/* Main content wrapper */}
+          <main className="flex-grow mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             {children}
           </main>
+
           <Footer />
         </div>
       </body>
