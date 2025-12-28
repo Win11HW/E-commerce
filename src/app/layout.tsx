@@ -18,7 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className={`${inter.className} bg-background text-foreground`}>
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-grow">
