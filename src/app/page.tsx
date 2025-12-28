@@ -215,56 +215,61 @@ export default function Home() {
       </section>
 
       <section>
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Popular Computers</h2>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-2xl font-bold">Popular Computers</h2>
 
-        <Link
-          href="/category/computers"
-          className="text-sm font-medium text-blue-600"
-        >
-          View all
-        </Link>
-      </div>
+            <Link
+              href="/category/computers"
+              className="text-sm font-medium text-blue-600 hover:text-blue-700"
+            >
+              View all
+            </Link>
+          </div>
 
-      <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-        {computers.map((computer) => (
-          <Card
-            key={computer.id}
-            id={computer.id}
-            name={computer.name}
-            specs={computer.specs}
-            price={computer.price}
-            image={computer.image}
-          />
-        ))}
-      </div>
-    </section>
+          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+            {computers.map((computer) => (
+              <Card
+                key={computer.id}
+                id={computer.id}
+                name={computer.name}
+                specs={computer.specs}
+                price={computer.price}
+                image={computer.image}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <section>
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Popular Computers</h2>
+      <section>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-2xl font-bold">Popular Smartphones</h2>
 
-        <Link
-          href="/category/computers"
-          className="text-sm font-medium text-blue-600"
-        >
-          View all
-        </Link>
-      </div>
+            <Link
+              href="/category/smartphones"
+              className="text-sm font-medium text-blue-600 hover:text-blue-700"
+            >
+              View all
+            </Link>
+          </div>
 
-      <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-        {computers.map((computer) => (
-          <Card
-            key={computer.id}
-            id={computer.id}
-            name={computer.name}
-            specs={computer.specs}
-            price={computer.price}
-            image={computer.image}
-          />
-        ))}
-      </div>
-    </section>
+          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+            {computers.map((computer) => (
+              <Card
+                key={computer.id}
+                id={computer.id}
+                name={computer.name}
+                specs={computer.specs}
+                price={computer.price}
+                image={computer.image}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
 
     <br/><br/>
     </main>
